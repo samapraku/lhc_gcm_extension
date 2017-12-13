@@ -7,6 +7,8 @@ To Install Extension
 Path to extension should be 'extension/gcm' else it won't work.
 2. Enable gcm extension in your settings.ini.php file ((from main LHC installation).
 Check here for how to enable extension: https://livehelperchat.com/article/view/57
+
+ENABLE PUSH IN THE APP
 3. After enabling the extension on your server from step 2 above, Go to the app menu -> Push Notifications 
 4. Tap the 'Save FCM KEY TO YOUR SERVER' to register your device on your server.
 5. If the registration is successful on your server, you will receive a notification in the notification bar of your fone telling you 'Device Successfully Registered'.
