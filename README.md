@@ -19,5 +19,5 @@ ENABLE PUSH IN THE APP
 
 5. After enabling the extension on your server from step 2 above, Go to the app menu -> Push Notifications 
 6. Tap the 'Save FCM KEY TO YOUR SERVER' to register your device on your server.
-7. If the registration is successful on your server, you will receive a notification in the notification bar of your fone telling you 'Device Successfully Registered'.
+7. If the registration is successful on your server, you will receive a notification in the notification bar of your phone telling you 'Device Successfully Registered'.
 8.  You will receive new push notifications for new chat request, new messages and unread messages.
