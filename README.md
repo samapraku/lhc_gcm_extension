@@ -14,10 +14,16 @@ CONFIGURE APP
 3. Login/Password for app is same as the web logins
 4. Server url is the address to your livehelperchat installation. 
     eg. http://livehelperchat.yourdomain.com or https://yourdomain.com/livehelperchat
+    
+**5. After Login, Open the menu drawer, select Server Info and Tap 'Sync Server'.**
 
-ENABLE PUSH IN THE APP
 
-5. After enabling the extension on your server from step 2 above, Go to the app menu -> Push Notifications 
+
+THE STEPS BELOW ARE NO LONGER NECESSARY SINCE app version 1.2.0
+
+~~ENABLE PUSH IN THE APP~~
+
+~~5. After enabling the extension on your server from step 2 above, Go to the app menu -> Push Notifications 
 6. Tap the 'Save FCM KEY TO YOUR SERVER' to register your device on your server.
 7. If the registration is successful on your server, you will receive a notification in the notification bar of your phone telling you 'Device Successfully Registered'.
-8.  You will receive new push notifications for new chat request, new messages and unread messages.
+8.  You will receive new push notifications for new chat request, new messages and unread messages.~~
