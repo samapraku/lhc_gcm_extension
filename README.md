@@ -1,3 +1,6 @@
+# KNOWN ISSUES (app version 1.2.0)
+Notification only works when app is not active. That is the default behaviour of Firebase Messaging.
+
 # lhc_gcm_extension
 An extension to enable FCM push notifications for livehelperchat android app.
 
