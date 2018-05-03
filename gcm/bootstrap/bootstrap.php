@@ -1,7 +1,15 @@
 <?php 
 
-class erLhcoreClassExtensionGcm {
+// Register Wurrd classes
+$lhcmExtRoot = dirname(dirname(__FILE__));
 
+$loader = require_once($lhcmExtRoot . '/vendor/autoload.php');
+$loader->addPsr4('LHCMessenger\\Classes\\', $lhcmExtRoot . '/modules/lhgcm/Classes/', true);
+
+use LHCMessenger\Classes\Config;
+
+class erLhcoreClassExtensionGcm {
+    
 	public function __construct() {
 	}
 
@@ -11,51 +19,68 @@ class erLhcoreClassExtensionGcm {
 
 		$dispatcher = erLhcoreClassChatEventDispatcher::getInstance();
 
-		
-
 		// Attatch event listeners
-
 		$dispatcher->listen('chat.close',array($this,'chatClosed'));
 		$dispatcher->listen('chat.unread_chat',array($this,'unreadMessage'));	
 		$dispatcher->listen('chat.addmsguser', array($this,'newMessage'));		
-		$dispatcher->listen('chat.chat_started', array($this,'newChat'));					
+		$dispatcher->listen('chat.chat_started', array($this,'newChat'));
+		
 	}
+	
+
 
 	public function chatClosed($params) {
-
 		// 
-
 		// 'chat' => & $chat, 		// Chat which was closed
 
 		// 'user_data' => $operator // Operator who has closed a chat
 
-		// 
-
-		// 
-
-		//
-
 	}
 
 
 	
-  public function sendPushNotificationToGCM($title,$chatid,$chat_type,$nick,$msg) {
-		$settings =include 'extension/gcm/settings.php';
-
+  public function sendPushNotificationToGCM($title,$chat,$chat_type,$msg) {
+       
+        $config =  Config::getInstance();
+	      
+	//	$settings =include 'extension/gcm/settings/settings.ini.php';	
+		
       	//Google cloud messaging GCM-API url
-        $url = 'https://android.googleapis.com/gcm/send';
+        $url = 'https://fcm.googleapis.com/fcm/send';
 	
-	$registered_ids= $settings['gcm_reg_id'];
+        $registered_ids = $config->getSetting("fcm","fcm_reg_ids");
         
-	$fields = array(
-            'registration_ids' => $registered_ids,
-            'data' => array("m" => $title,"chat_id"=> $chatid,"chat_type"=>$chat_type,"nick"=>$nick,"msg"=>$msg)
-        );
-		// Google Cloud Messaging GCM API Key
-		//define("GOOGLE_API_KEY", "AIzaSyAeuzXn29YybxGtdSgUAhKl2w9a-HeeIco"); 	 
-		$google_api = $settings['google_api_key'];
+        $allowed_ids=array();
+          foreach ($registered_ids as $key => $value) {
+              //getuser
+              $user = erLhcoreClassModelUser::fetch($key); 
+              	$currentUser = erLhcoreClassUser::instance();
+              	$currentUser->setLoggedUser($user->id);
+            //  $chatInstance = erLhcoreClassChat::getSession()->load( 'erLhcoreClassModelChat', $chat->id);
+              if ( erLhcoreClassChat::hasAccessToRead($chat) )
+            {
+             $allowed_ids= array_merge($allowed_ids,$value); 
+             }
+             
+              $currentUser->logout();
+              
+        }
+        
+        $installation_id=$config->getSetting("installation","installationid");
+        
+        $google_api = $config->getSetting('fcm','google_api_key');
 
 		define("GOOGLE_API_KEY",$google_api);	
+	
+
+		
+	$fields = array(
+            'registration_ids' => $allowed_ids,
+            'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg,"priority"=>"high") 
+        );
+        
+		 /* 'data' => array("server_id"=>$installation_id,"m" => $title,"chat"=> json_encode($chat),"chat_type"=>$chat_type,"msg"=>$msg),	 ,
+           'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg,"priority"=>"high")  */
 
         $headers = array(
             'Authorization: key=' . GOOGLE_API_KEY,
@@ -96,23 +121,20 @@ class erLhcoreClassExtensionGcm {
     {
     $chat = $params['chat'];
     $msg = $params['msg'];
-    $this->sendPushNotificationToGCM("New Message",$chat->id,"new_msg",$chat->nick,$msg->msg);
+    $this->sendPushNotificationToGCM("New Message",$chat,"new_msg",$msg->msg);
     }
 
     public function newChat($params)
     {
     $chat = $params['chat'];
     $msg = $params['msg'];
-    $this->sendPushNotificationToGCM("NEW CHAT",$chat->id,"pending",$chat->nick,$msg->msg);
+    $this->sendPushNotificationToGCM("NEW CHAT",$chat,"pending",$msg->msg);
     }
 
     public function unreadMessage($params)
     {
     $chat = $params['chat'];
-    $this->sendPushNotificationToGCM("Unread Message",$chat->id,"unread",$chat->nick,"");
+    $this->sendPushNotificationToGCM("Unread Message",$chat,"unread","");
     }
 
 }
-
-
-// >
