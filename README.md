@@ -4,7 +4,7 @@ Notification only works when app is not active. That is the default behaviour of
 # lhc_gcm_extension
 An extension to enable FCM push notifications for livehelperchat android app.
 
-To Install Extension
+To Install Extension (same for UPDATE)
 1. Download the extension and copy the 'gcm' directory to <LHC_install_dir>/extension
 2. Activate the extension by adding 'gcm' to the 'extension' array in <LHC_install_dir>/settings/settings.ini.php 
 [e.g look for  'settings' => array ('site' =>array ( 'extensions' =>array ( 0 =>'gcm'),]
