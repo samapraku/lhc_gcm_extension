@@ -5,6 +5,7 @@
     'installation' => 
     array (
       'installationid' => '',
+	  'version' => '0.1.2'
     ),
     'fcm' => 
     array (

@@ -43,8 +43,6 @@ class erLhcoreClassExtensionGcm {
        
         $config =  Config::getInstance();
 	      
-	//	$settings =include 'extension/gcm/settings/settings.ini.php';	
-		
       	//Google cloud messaging GCM-API url
         $url = 'https://fcm.googleapis.com/fcm/send';
 	
@@ -76,11 +74,10 @@ class erLhcoreClassExtensionGcm {
 		
 	$fields = array(
             'registration_ids' => $allowed_ids,
-            'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg,"priority"=>"high") 
+            'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg,"priority"=>"high"),
+            'data' => array("server_id"=>$installation_id,"m" => $title,"chat_type"=>$chat_type,"msg"=>$msg,"chat"=> json_encode($chat) ) 
         );
         
-		 /* 'data' => array("server_id"=>$installation_id,"m" => $title,"chat"=> json_encode($chat),"chat_type"=>$chat_type,"msg"=>$msg),	 ,
-           'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg,"priority"=>"high")  */
 
         $headers = array(
             'Authorization: key=' . GOOGLE_API_KEY,
