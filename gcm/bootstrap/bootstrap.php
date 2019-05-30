@@ -74,7 +74,7 @@ class erLhcoreClassExtensionGcm {
 		
 	$fields = array(
             'registration_ids' => $allowed_ids,
-            'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg,"priority"=>"high"),
+            'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg),
             'data' => array("server_id"=>$installation_id,"m" => $title,"chat_type"=>$chat_type,"msg"=>$msg,"chat"=> json_encode($chat) ) 
         );
         
