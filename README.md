@@ -19,6 +19,7 @@ Refer to this for example: https://github.com/LiveHelperChat/livehelperchat/blob
 Note: Path to extension directory should be '<LHC_install_dir>/extension/gcm' else it won't work.
 
 **CONFIGURE APP**
+
 3. Login/Password for app is same as the web logins
 4. Server url is the address to your livehelperchat installation. 
     eg. http://livehelperchat.yourdomain.com or https://yourdomain.com/livehelperchat
