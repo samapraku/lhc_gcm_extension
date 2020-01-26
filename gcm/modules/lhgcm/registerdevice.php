@@ -89,7 +89,7 @@ if(isset($_POST["regId"]) )
 $gc_key = $config->getSetting( $fcm_section,"google_api_key");
     $gcmRegIds = array($gcmRegID);
 
- if(isset($gcmRegID)) 
+ //if(isset($gcmRegID)) 
  //sendPushNotificationToGCM($gc_key,$gcmRegIds);
 	
 echo json_encode(array("error"=>"false","results"=>$output_result));
