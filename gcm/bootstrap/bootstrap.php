@@ -1,6 +1,6 @@
 <?php 
 
-// Register Wurrd classes
+// Register classes
 $lhcmExtRoot = dirname(dirname(__FILE__));
 
 $loader = require_once($lhcmExtRoot . '/vendor/autoload.php');
