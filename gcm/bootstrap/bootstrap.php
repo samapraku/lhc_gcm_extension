@@ -1,21 +1,17 @@
 <?php 
 
-// Register Wurrd classes
-$lhcmExtRoot = dirname(dirname(__FILE__));
-
-$loader = require_once($lhcmExtRoot . '/vendor/autoload.php');
-$loader->addPsr4('LHCMessenger\\Classes\\', $lhcmExtRoot . '/modules/lhgcm/Classes/', true);
-
-use LHCMessenger\Classes\Config;
-
 class erLhcoreClassExtensionGcm {
-    
+  
+  private $settings = array();
+
 	public function __construct() {
 	}
 
 	public function run(){		
+    
+    $this->settings = include('extension/gcm/settings/settings.ini.php');
 
-	//	 $this->registerAutoload();
+		 $this->registerAutoload();
 
 		$dispatcher = erLhcoreClassChatEventDispatcher::getInstance();
 
@@ -23,11 +19,24 @@ class erLhcoreClassExtensionGcm {
 		$dispatcher->listen('chat.close',array($this,'chatClosed'));
 		$dispatcher->listen('chat.unread_chat',array($this,'unreadMessage'));	
 		$dispatcher->listen('chat.addmsguser', array($this,'newMessage'));		
-		$dispatcher->listen('chat.chat_started', array($this,'newChat'));
+		$dispatcher->listen('chat.chat_started', array($this,'newChat'));	
+		$dispatcher->listen('twilio.sms_received', array($this,'smsReceived'));
 		
 	}
 	
 
+  public function smsReceived($params){
+
+    $chat = $params['chat'];
+
+    if ($chat instanceof erLhcoreClassModelChat && $chat->status == erLhcoreClassModelChat::STATUS_CLOSED_CHAT) {
+        $this->newChat($params);
+    }
+    else {
+      $this->newMessage($params);
+    }
+
+  }
 
 	public function chatClosed($params) {
 		// 
@@ -41,7 +50,7 @@ class erLhcoreClassExtensionGcm {
 	
   public function sendPushNotificationToGCM($title,$chat,$chat_type,$msg) {
        
-        $config =  Config::getInstance();
+        $config =  lhgcmConfig::getInstance();
 	      
       	//Google cloud messaging GCM-API url
         $url = 'https://fcm.googleapis.com/fcm/send';
@@ -74,8 +83,9 @@ class erLhcoreClassExtensionGcm {
 		
 	$fields = array(
             'registration_ids' => $allowed_ids,
-            'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg,"priority"=>"high"),
-            'data' => array("server_id"=>$installation_id,"m" => $title,"chat_type"=>$chat_type,"msg"=>$msg,"chat"=> json_encode($chat) ) 
+            'notification'=>array("title"=>$title,"sound"=>"default","body"=>$chat->nick.': '.$msg),
+            'priority'=>'high',
+            'data' => array("click_action"=> "FLUTTER_NOTIFICATION_CLICK","server_id"=>$installation_id,"m" => $title,"chat_type"=>$chat_type,"msg"=>$msg,"chat"=> json_encode($chat) ) 
         );
         
 
@@ -106,6 +116,15 @@ class erLhcoreClassExtensionGcm {
         spl_autoload_register(array($this, 'autoload'), true, false);
     }
     
+    public function autoload($className) {
+      $classesArray = array (
+          'lhgcmConfig'  => 'extension/gcm/classes/lhgcmConfig.php'
+      );
+
+      if (key_exists ( $className, $classesArray )) {
+          include_once $classesArray [$className];
+      }
+  }
     
   // the lines below are used to debug
 //  $filename = "extension/gcm/newchatparams.txt";
