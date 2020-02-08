@@ -42,6 +42,6 @@ If you do not receive a push notification after login, then try the next step.
 **Issues**  
 
 The twilio extension requires the REST API. However, the rest API might not work with the default .htaccess configuration.
-Adding the configuration below may work. 
+Adding the configuration below to .htaccess file may work. 
 
 <code> SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1</code>
