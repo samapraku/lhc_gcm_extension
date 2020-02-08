@@ -36,9 +36,12 @@ Note: Path to extension directory should be '<LHC_install_dir>/extension/gcm' el
 6.  You will receive new push notifications for new chat request, new messages and unread messages.
 
 If you do not receive a push notification after login, then try the next step.
+
 7. In the app, open the menu drawer, select Server Details and Tap 'Sync Server'.
 
-**Issues**
+**Issues**  
+
 The twilio extension requires the REST API. However, the rest API might not work with the default .htaccess configuration.
 Adding the configuration below may work. 
+
 <code> SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1</code>
