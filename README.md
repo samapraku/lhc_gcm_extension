@@ -39,9 +39,10 @@ If you do not receive a push notification after login, then try the next step.
 
 7. In the app, open the menu drawer, select Server Details and Tap 'Sync Server'.
 
-**Issues**  
 
-The twilio extension requires the REST API. However, the rest API might not work with the default .htaccess configuration.
+## Troubleshooting Issues
+
+The app and twilio extension now requires the REST API in LHC. However, the rest API might not work with the default .htaccess configuration.
 Adding the configuration below to .htaccess file may work. 
 
 ```
