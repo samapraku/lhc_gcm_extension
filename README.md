@@ -8,8 +8,9 @@ An extension to enable FCM push notifications for livehelperchat android app.
 Added Support for twilio SMS  
 Push notification bug fixes  
 
-**To UPDATE**  
+**It is recommended to use the latest version of main LHC web**
 
+**To UPDATE**  
 If you already have the extension installed,
 1. Just replace the content of <LHC_install_dir>/extension/gcm with the content from 'gcm' directory you have downloaded.
 2. Clear LHC cache from LHC settings page for update to reflect.
