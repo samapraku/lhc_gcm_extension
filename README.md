@@ -8,7 +8,7 @@ An extension to enable FCM push notifications for livehelperchat android app.
 Added Support for twilio SMS  
 Push notification bug fixes  
 
-**For UPDATE**  
+**To UPDATE**  
 
 If you already have the extension installed,
 1. Just replace the content of <LHC_install_dir>/extension/gcm with the content from 'gcm' directory you have downloaded.
@@ -39,6 +39,16 @@ If you do not receive a push notification after login, then try the next step.
 
 7. In the app, open the menu drawer, select Server Details and Tap 'Sync Server'.
 
+##  Important - REST API Requirements
+The latest version of the Application requires the REST API that is included in LHC web to work. The username and password will not work with the REST API by default. Additional permissions have to be assigned to user before the app can work with the username and password.
+
+**setting Permissions to use username and password for REST API**
+To access REST API with username and password as user, the user has to be given the following permissions lhrestapi, use_direct_logins.
+
+1. In LHC web settings, go to System -> Users -> User -> Edit -> Permissions -> Show permissions
+2. Click "[lhrestapi] Live helper Chat REST API service, EX - Twilio Rest API"
+3. Check the two checkboxes beside [use_admin] and [use_direct_logins]
+4. Click "Request permission" button. After that the app will be able to use the REST API.
 
 ## Troubleshooting Issues
 
