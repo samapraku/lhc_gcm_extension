@@ -44,6 +44,7 @@ If you do not receive a push notification after login, then try the next step.
 The latest version of the Application requires the REST API that is included in LHC web to work. The username and password will not work with the REST API by default. Additional permissions have to be assigned to user before the app can work with the username and password.
 
 **setting Permissions to use username and password for REST API**
+
 To access REST API with username and password as user, the user has to be given the following permissions [lhrestapi], use_direct_logins.
 
 1. In LHC web settings, go to System -> Users -> User -> Edit -> Permissions -> Show permissions
