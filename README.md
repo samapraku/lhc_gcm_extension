@@ -1,3 +1,10 @@
+# IMPORTANT
+This extension is no longer required. It has been integrated into Livehelperchat web application. 
+The mobile app has been moved to the official livehelperchat organization.
+
+https://github.com/LiveHelperChat/lhc_messenger
+
+
 
 
 # lhc_gcm_extension
